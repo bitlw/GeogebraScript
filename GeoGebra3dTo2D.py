@@ -236,6 +236,8 @@ def ParseElements(root):
             x = float(coords.getAttribute('x'))
             y = float(coords.getAttribute('y'))
             z = float(coords.getAttribute('z'))
+            if elementType == 'point':
+                z = 0
             w = coords.getAttribute('w')
             if w != '' and w != '0':
                 w = float(w)
