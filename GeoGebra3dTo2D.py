@@ -281,12 +281,14 @@ def SplitLines(sgLine2dList, sgPolygon2dList, npLine3dList, npPolygon3dList, T, 
     lineIntersectionsList = []
     for i in range(len(sgLine2dList)):
         sgLine2d = sgLine2dList[i]
-        intersectionsList = sgLine2d.coords._coords.tolist()
+        # remove _coords to fit for different version of shapely 
+        # intersectionsList = sgLine2d.coords._coords.tolist()
+        intersectionsList = np.array(sgLine2d.coords).tolist()
         for j in range(len(sgPolygon2dList)):
             sgPolygon = sgPolygon2dList[j]
             if sgPolygon.intersects(sgLine2d):
                 intersections = sgPolygon.intersection(sgLine2d)
-                intersectionsList.extend(intersections.coords._coords.tolist())
+                intersectionsList.extend(np.array(intersections.coords).tolist())
 
                 intersection3d = Calculate3dIntersection(npLine3dList[i], npPolygon3dList[j])
                 if intersection3d is not None:
